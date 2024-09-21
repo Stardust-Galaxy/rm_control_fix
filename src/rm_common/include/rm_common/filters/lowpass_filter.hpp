@@ -6,7 +6,7 @@
 #include <rclcpp/rclcpp.hpp>
 class LowpassFilter {
 public:
-    explicit LowpassFilter(rclcpp::NodeOptions& options) : Node("lowpass_filter", options);
+    explicit LowpassFilter(rclcpp::NodeOptions& options);
     explicit LowpassFilter(double cutoff_frequency);
     void input(double in);
     void input(double in, rclcpp::Time time_stamp);

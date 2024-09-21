@@ -10,7 +10,8 @@
 namespace rm_common {
 class ImuFilterBase {
 public:
-    //bool init(XmlRpc::XmlRpcValue& imu_data, const std::string& name);
+    ImuFilterBase(const rclcpp::NodeOptions& options);
+    bool init(XmlRpc::XmlRpcValue& imu_data, const std::string& name);
     void update(rclcpp::Time time, double* accel, double* omega, double* ori, double* accel_cov,double* omega_cov, 
                 double* ori_cov, double temp, bool camera_trigger);
     virtual void getOrientation(double& q0, double& q1, double& q2, double& q3) = 0;

@@ -1,7 +1,7 @@
 #include "rm_hw/hardware_interface/socketcan.hpp"
 #include <sys/socket.h>
 #include <sys/ioctl.h>
-#include <utility
+#include <utility>
 #include <rclcpp/rclcpp.hpp>
 
 namespace can

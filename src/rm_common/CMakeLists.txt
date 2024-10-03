@@ -7,6 +7,38 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(realtime_tools REQUIRED)
+find_package(ament_cmake_auto REQUIRED)
+find_package(rclcpp_components REQUIRED)
+find_package(sensor_msgs REQUIRED)
+find_package(rm_msgs REQUIRED)
+find_package(xmlrpcpp REQUIRED)
+ament_auto_find_build_dependencies()
+ament_auto_add_library(${PROJECT_NAME} SHARED
+  DIRECTORY src
+)
+
+ament_target_dependencies(${PROJECT_NAME}
+        rclcpp
+        realtime_tools
+        sensor_msgs
+        rclcpp_components
+        xmlrpcpp
+        rm_msgs
+)
+include_directories(
+        ${PROJECT_SOURCE_DIR}/install/xmlrpcpp/include
+)
+target_include_directories(${PROJECT_NAME} PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+        $<INSTALL_INTERFACE:include>
+)
+RCLCPP_COMPONENTS_REGISTER_NODE(${PROJECT_NAME}
+        PLUGIN LowpassFilter
+        EXECUTABLE LowpassFilterNode
+)
+
 # uncomment the following section in order to fill in
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
@@ -22,5 +54,5 @@ if(BUILD_TESTING)
   set(ament_cmake_cpplint_FOUND TRUE)
   ament_lint_auto_find_test_dependencies()
 endif()
-
-ament_package()
+ament_export_include_directories(include)
+ament_auto_package()

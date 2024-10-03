@@ -1,5 +1,6 @@
 #pragma once
 
+#include <rclcpp/rclcpp.hpp>
 #include <linux/can.h>
 #include <net/if.h>
 #include <pthread.h>
@@ -11,18 +12,20 @@ namespace can  {
         ifreq interface_request_{};
         sockaddr_can address_{};
         pthread_t receiver_thread_id_{};
+        rclcpp::Logger logger_;
+        rclcpp::Clock::SharedPtr clock_;
     public:
         /**
          * @brief CAN socket file descriptor
          */
-        int sock_id_ = -1;
+        int sock_fd_ = -1;
         /**
          * @brief Request for the child thread to terminate
          */
         bool terminate_receiver_thread_ = false;
         bool receiver_thread_running_ = false;
 
-    SocketCAN() = default;
+    SocketCAN(rclcpp::Clock::SharedPtr clock_, rclcpp::Logger logger_);
     ~SocketCAN();
 
     /**
@@ -33,7 +36,7 @@ namespace can  {
      * 
      * @return \c true if it was successful, \c false otherwise
      */
-    bool open(const std::string& interface, boost::function<void(const can_frame& frame)> handler);
+    bool open(const std::string& interface, boost::function<void(const can_frame& frame)> handler, int thread_priority);
     /**
      * @brief Close and unbind the socket
      * 
@@ -51,7 +54,7 @@ namespace can  {
      * @param frame referenced frame which you want to send
      * 
      */
-    void write(can_frame& frame) const;
+    void write(can_frame* frame) const;
     /**
      * @brief Starts a new thread, which listens to the CAN bus
      * 

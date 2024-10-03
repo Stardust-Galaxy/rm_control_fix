@@ -5,12 +5,13 @@
 #include <sensor_msgs/msg/temperature.hpp>
 #include <sensor_msgs/msg/time_reference.hpp>
 #include <realtime_tools/realtime_publisher.h>
-
+#include <xmlrpc-c/base.hpp>
+#include "xmlrpcpp/XmlRpcValue.h"
 
 namespace rm_common {
-class ImuFilterBase {
+class ImuFilterBase : public rclcpp::Node{
 public:
-    ImuFilterBase(const rclcpp::NodeOptions& options);
+    ImuFilterBase(const rclcpp::NodeOptions& options) ;
     bool init(XmlRpc::XmlRpcValue& imu_data, const std::string& name);
     void update(rclcpp::Time time, double* accel, double* omega, double* ori, double* accel_cov,double* omega_cov, 
                 double* ori_cov, double temp, bool camera_trigger);
@@ -23,11 +24,11 @@ protected:
     rclcpp::Time last_update_;
     bool initialized_filter_{false};
     std::string frame_id_;
-    rclcpp::Publisher imu_data_pub_;
-    rclcpp::Publisher imu_temp_pub_;
-    rclcpp::Publisher trigger_time_pub_;
-    sensor_msgs::Imu imu_pub_data_;
-    sensor_msgs::Tempratrue temp_pub_data_;
-    sensor_msgs::TimeReference trigger_time_pub_data_;
+    rclcpp::Publisher<sensor_msgs::msg::Imu>::SharedPtr imu_data_pub_;
+    rclcpp::Publisher<sensor_msgs::msg::Temperature>::SharedPtr imu_temp_pub_;
+    rclcpp::Publisher<sensor_msgs::msg::TimeReference>::SharedPtr trigger_time_pub_;
+    sensor_msgs::msg::Imu imu_pub_data_;
+    sensor_msgs::msg::Temperature temp_pub_data_;
+    sensor_msgs::msg::TimeReference trigger_time_pub_data_;
 };
 }// namespace rm_common

@@ -1,12 +1,12 @@
 #pragma once
 
 #include <realtime_tools/realtime_publisher.h>
-#include <rm_msgs/LowPassFilter.hpp>
+#include <rm_msgs/msg/lowpass_data.hpp>
 #include <rclcpp_components/register_node_macro.hpp>
 #include <rclcpp/rclcpp.hpp>
-class LowpassFilter {
+class LowpassFilter : public rclcpp::Node {
 public:
-    explicit LowpassFilter(rclcpp::NodeOptions& options);
+    explicit LowpassFilter(const rclcpp::NodeOptions& options);
     explicit LowpassFilter(double cutoff_frequency);
     void input(double in);
     void input(double in, rclcpp::Time time_stamp);
@@ -34,7 +34,7 @@ private:
     bool is_debug_ = false;
 
     rclcpp::Time last_time_stamp_;
-    rclcpp::Duration delta_time_;
-    rclcpp::Publisher<rm_msgs::LowPassFilter>::SharedPtr publisher_{};
-    std::shared_ptr<realtime_tools::RealtimePublisher<rm_msgs::LowPassFilter>> realtime_publisher_{};
+    rclcpp::Duration delta_time_ = rclcpp::Duration::from_seconds(0);
+    rclcpp::Publisher<rm_msgs::msg::LowpassData>::SharedPtr publisher_{};
+    std::shared_ptr<realtime_tools::RealtimePublisher<rm_msgs::msg::LowpassData>> realtime_publisher_{};
 };

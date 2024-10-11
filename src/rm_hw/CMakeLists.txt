@@ -11,6 +11,7 @@ find_package(ament_cmake REQUIRED)
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
 find_package(rm_common REQUIRED)
+find_package(xmlrpcpp REQUIRED)
 find_package(ament_cmake_auto REQUIRED)
 ament_auto_find_build_dependencies()
 ament_auto_add_library(${PROJECT_NAME} SHARED
@@ -18,6 +19,8 @@ ament_auto_add_library(${PROJECT_NAME} SHARED
 )
 ament_target_dependencies( ${PROJECT_NAME}
         rm_common
+        hardware_interface
+        xmlrpcpp
 )
 include_directories(
         ${PROJECT_SOURCE_DIR}/install/rm_common/include

@@ -7,7 +7,7 @@
 #include <mutex>
 #include <thread>
 #include <boost/bind.hpp>
-#include <rm_common/math_utilities.hpp>
+#include <rm_common/utilities/math_utilities.hpp>
 
 namespace rm_hw {
     struct CanFrameStamp {

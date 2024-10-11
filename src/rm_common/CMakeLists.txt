@@ -8,6 +8,7 @@ endif()
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(hardware_interface REQUIRED)
 find_package(realtime_tools REQUIRED)
 find_package(ament_cmake_auto REQUIRED)
 find_package(rclcpp_components REQUIRED)
@@ -16,7 +17,7 @@ find_package(rm_msgs REQUIRED)
 find_package(xmlrpcpp REQUIRED)
 ament_auto_find_build_dependencies()
 ament_auto_add_library(${PROJECT_NAME} SHARED
-  DIRECTORY src
+        DIRECTORY src
 )
 
 ament_target_dependencies(${PROJECT_NAME}
@@ -26,9 +27,17 @@ ament_target_dependencies(${PROJECT_NAME}
         rclcpp_components
         xmlrpcpp
         rm_msgs
+        hardware_interface
 )
 include_directories(
         ${PROJECT_SOURCE_DIR}/install/xmlrpcpp/include
+)
+include_directories(BEFORE
+        ${CMAKE_CURRENT_SOURCE_DIR}/include/utilities/
+)
+set(HEADERS
+        include/utilities/math_utilities.hpp
+        include/utilities/xmlrpc_utilities.hpp
 )
 target_include_directories(${PROJECT_NAME} PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>

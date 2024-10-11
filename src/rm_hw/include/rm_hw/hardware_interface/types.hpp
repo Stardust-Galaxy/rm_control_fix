@@ -31,7 +31,7 @@ struct ActData {
 };
 
 struct ImuData {
-    rclcpp::Time stamp;
+    rclcpp::Time time_stamp;
     std::string imu_name;
     double ori[4];
     double angular_vel[3];
@@ -53,6 +53,6 @@ struct CanDataPtr {
     std::unordered_map<std::string, ActCoeff>* type2act_coeffs_;
     std::unordered_map<int, ActData>* id2act_data_;
     std::unordered_map<int, ImuData>* id2imu_data_;
-    std::unordered_map<int, TofData>* id2of_data_;
+    std::unordered_map<int, TofData>* id2tof_data_;
 };
 }

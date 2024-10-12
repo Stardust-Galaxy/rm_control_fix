@@ -1,0 +1,10 @@
+//
+// Created by stardust on 2024/10/12.
+//
+
+#ifndef BUILD_RM_IMU_SENSOR_INTERFACE_HPP
+#define BUILD_RM_IMU_SENSOR_INTERFACE_HPP
+
+
+
+#endif //BUILD_RM_IMU_SENSOR_INTERFACE_HPP

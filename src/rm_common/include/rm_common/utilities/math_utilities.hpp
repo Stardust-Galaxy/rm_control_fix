@@ -1,4 +1,9 @@
-#pragma once
+//
+// Created by stardust on 2024/10/12.
+//
+
+#ifndef BUILD_MATH_UTILITIES_HPP
+#define BUILD_MATH_UTILITIES_HPP
 
 #include <cmath>
 template <typename T>
@@ -39,3 +44,4 @@ T alpha(T cutoff, double freq)
     T te = 1.0 / freq;
     return 1.0 / (1.0 + tau / te);
 }
+#endif //BUILD_MATH_UTILITIES_HPP

@@ -23,7 +23,7 @@ namespace rm_control {
         GpioStateHandle() = default;
         hardware_interface::return_type GpioStateHandleInit(const std::string& name, GpioType type, bool* value)  {
             name_ = name;
-0 4           type_ = type;
+            type_ = type;
             value_ = value;
             if(value_ == nullptr) {
                 return hardware_interface::return_type::ERROR;
@@ -42,7 +42,20 @@ namespace rm_control {
             name_ = name;
             type_ = type;
             cmd_ = cmd;
+            if(!cmd) {
+                return hardware_interface::return_type::ERROR;
+            }
         }
+        std::string get_name() const { return name_; }
+        bool get_cmd() const { return *cmd_; }
+        void set_cmd(bool cmd) { *cmd_ = cmd; }
+    private:
+        std::string name_;
+        GpioType type_;
+        bool* cmd_ = {nullptr};
     };
+
+    class GpioStateInterface : public hardware_interface::ResourceManager {};
+    class GpioCommandInterface : public hardware_interface::ResourceManager {};
 }
 #endif //BUILD_GPIO_INTERFACE_HPP

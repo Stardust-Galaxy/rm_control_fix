@@ -1,0 +1,8 @@
+//
+// Created by stardust on 2024/10/12.
+//
+
+#ifndef BUILD_ROBOT_STATE_INTERFACE_HPP
+#define BUILD_ROBOT_STATE_INTERFACE_HPP
+
+#endif //BUILD_ROBOT_STATE_INTERFACE_HPP

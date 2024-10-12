@@ -1,6 +1,0 @@
-Invoking command in '/home/stardust/Code/rm_control_fix/build/rm_msgs': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/stardust/Code/rm_control_fix/src/rm_msgs -DCMAKE_INSTALL_PREFIX=/home/stardust/Code/rm_control_fix/install/rm_msgs
-Invoked command in '/home/stardust/Code/rm_control_fix/build/rm_msgs' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/stardust/Code/rm_control_fix/src/rm_msgs -DCMAKE_INSTALL_PREFIX=/home/stardust/Code/rm_control_fix/install/rm_msgs
-Invoking command in '/home/stardust/Code/rm_control_fix/build/rm_msgs': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/stardust/Code/rm_control_fix/build/rm_msgs -- -j12 -l12
-Invoked command in '/home/stardust/Code/rm_control_fix/build/rm_msgs' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/stardust/Code/rm_control_fix/build/rm_msgs -- -j12 -l12
-Invoking command in '/home/stardust/Code/rm_control_fix/build/rm_msgs': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/stardust/Code/rm_control_fix/build/rm_msgs
-Invoked command in '/home/stardust/Code/rm_control_fix/build/rm_msgs' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/stardust/Code/rm_control_fix/build/rm_msgs

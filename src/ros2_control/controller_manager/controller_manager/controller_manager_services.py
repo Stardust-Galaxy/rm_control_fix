@@ -88,23 +88,15 @@ def service_caller(
     @return The service response
 
     """
-    namespace = "" if node.get_namespace() == "/" else node.get_namespace()
-    fully_qualified_service_name = (
-        f"{namespace}/{service_name}" if not service_name.startswith("/") else service_name
-    )
-    cli = node.create_client(service_type, fully_qualified_service_name)
+    cli = node.create_client(service_type, service_name)
 
     while not cli.service_is_ready():
-        node.get_logger().info(
-            f"waiting for service {fully_qualified_service_name} to become available..."
-        )
+        node.get_logger().info(f"waiting for service {service_name} to become available...")
         if service_timeout:
             if not cli.wait_for_service(service_timeout):
-                raise ServiceNotFoundError(
-                    f"Could not contact service {fully_qualified_service_name}"
-                )
+                raise ServiceNotFoundError(f"Could not contact service {service_name}")
         elif not cli.wait_for_service(10.0):
-            node.get_logger().warn(f"Could not contact service {fully_qualified_service_name}")
+            node.get_logger().warn(f"Could not contact service {service_name}")
 
     node.get_logger().debug(f"requester: making request: {request}\n")
     future = None
@@ -113,13 +105,13 @@ def service_caller(
         rclpy.spin_until_future_complete(node, future, timeout_sec=call_timeout)
         if future.result() is None:
             node.get_logger().warning(
-                f"Failed getting a result from calling {fully_qualified_service_name} in "
+                f"Failed getting a result from calling {service_name} in "
                 f"{service_timeout}. (Attempt {attempt+1} of {max_attempts}.)"
             )
         else:
             return future.result()
     raise RuntimeError(
-        f"Could not successfully call service {fully_qualified_service_name} after {max_attempts} attempts."
+        f"Could not successfully call service {service_name} after {max_attempts} attempts."
     )
 
 
@@ -214,7 +206,6 @@ def set_hardware_component_state(
         f"{controller_manager_name}/set_hardware_component_state",
         SetHardwareComponentState,
         request,
-        service_timeout,
     )
 
 
@@ -320,7 +311,7 @@ def set_controller_parameters_from_param_file(
     if parameter_file:
         spawner_namespace = namespace if namespace else node.get_namespace()
         set_controller_parameters(
-            node, controller_manager_name, controller_name, "params_file", parameter_file
+            node, controller_manager_name, controller_name, "param_file", parameter_file
         )
 
         controller_type = get_parameter_from_param_file(
@@ -329,19 +320,6 @@ def set_controller_parameters_from_param_file(
         if controller_type:
             if not set_controller_parameters(
                 node, controller_manager_name, controller_name, "type", controller_type
-            ):
-                return False
-
-        fallback_controllers = get_parameter_from_param_file(
-            controller_name, spawner_namespace, parameter_file, "fallback_controllers"
-        )
-        if fallback_controllers:
-            if not set_controller_parameters(
-                node,
-                controller_manager_name,
-                controller_name,
-                "fallback_controllers",
-                fallback_controllers,
             ):
                 return False
     return True

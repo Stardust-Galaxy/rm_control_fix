@@ -14,6 +14,7 @@
 
 #include <algorithm>
 #include <cmath>
+#include <memory>
 #include <vector>
 
 #include "hardware_interface/sensor_interface.hpp"
@@ -33,7 +34,7 @@ class TestForceTorqueSensor : public SensorInterface
       return CallbackReturn::ERROR;
     }
 
-    const auto & state_interfaces = get_hardware_info().sensors[0].state_interfaces;
+    const auto & state_interfaces = info_.sensors[0].state_interfaces;
     if (state_interfaces.size() != 6)
     {
       return CallbackReturn::ERROR;
@@ -57,7 +58,7 @@ class TestForceTorqueSensor : public SensorInterface
   {
     std::vector<StateInterface> state_interfaces;
 
-    const auto & sensor_name = get_hardware_info().sensors[0].name;
+    const auto & sensor_name = info_.sensors[0].name;
     state_interfaces.emplace_back(
       hardware_interface::StateInterface(sensor_name, "fx", &values_.fx));
     state_interfaces.emplace_back(

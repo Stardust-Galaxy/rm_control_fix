@@ -13,6 +13,7 @@
 // limitations under the License.
 
 #include <array>
+#include <memory>
 #include <vector>
 
 #include "hardware_interface/system_interface.hpp"
@@ -35,11 +36,11 @@ class TestTwoJointSystem : public SystemInterface
     }
 
     // can only control two joint
-    if (get_hardware_info().joints.size() != 2)
+    if (info_.joints.size() != 2)
     {
       return CallbackReturn::ERROR;
     }
-    for (const auto & joint : get_hardware_info().joints)
+    for (const auto & joint : info_.joints)
     {
       // can only control in position
       const auto & command_interfaces = joint.command_interfaces;
@@ -70,11 +71,10 @@ class TestTwoJointSystem : public SystemInterface
   std::vector<StateInterface> export_state_interfaces() override
   {
     std::vector<StateInterface> state_interfaces;
-    for (auto i = 0u; i < get_hardware_info().joints.size(); ++i)
+    for (auto i = 0u; i < info_.joints.size(); ++i)
     {
       state_interfaces.emplace_back(hardware_interface::StateInterface(
-        get_hardware_info().joints[i].name, hardware_interface::HW_IF_POSITION,
-        &position_state_[i]));
+        info_.joints[i].name, hardware_interface::HW_IF_POSITION, &position_state_[i]));
     }
 
     return state_interfaces;
@@ -83,11 +83,10 @@ class TestTwoJointSystem : public SystemInterface
   std::vector<CommandInterface> export_command_interfaces() override
   {
     std::vector<CommandInterface> command_interfaces;
-    for (auto i = 0u; i < get_hardware_info().joints.size(); ++i)
+    for (auto i = 0u; i < info_.joints.size(); ++i)
     {
       command_interfaces.emplace_back(hardware_interface::CommandInterface(
-        get_hardware_info().joints[i].name, hardware_interface::HW_IF_POSITION,
-        &position_command_[i]));
+        info_.joints[i].name, hardware_interface::HW_IF_POSITION, &position_command_[i]));
     }
 
     return command_interfaces;
@@ -104,8 +103,8 @@ class TestTwoJointSystem : public SystemInterface
   }
 
 private:
-  std::array<double, 2> position_command_ = {{0.0, 0.0}};
-  std::array<double, 2> position_state_ = {{0.0, 0.0}};
+  std::array<double, 2> position_command_ = {0.0, 0.0};
+  std::array<double, 2> position_state_ = {0.0, 0.0};
 };
 
 }  // namespace test_hardware_components

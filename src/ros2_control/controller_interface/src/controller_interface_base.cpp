@@ -19,23 +19,21 @@
 #include <utility>
 #include <vector>
 
+#include "hardware_interface/types/lifecycle_state_names.hpp"
 #include "lifecycle_msgs/msg/state.hpp"
 
 namespace controller_interface
 {
 return_type ControllerInterfaceBase::init(
-  const std::string & controller_name, const std::string & urdf, unsigned int cm_update_rate,
-  const std::string & node_namespace, const rclcpp::NodeOptions & node_options)
+  const std::string & controller_name, const std::string & namespace_,
+  const rclcpp::NodeOptions & node_options)
 {
-  urdf_ = urdf;
   node_ = std::make_shared<rclcpp_lifecycle::LifecycleNode>(
-    controller_name, node_namespace, node_options,
-    false);  // disable LifecycleNode service interfaces
+    controller_name, namespace_, node_options, false);  // disable LifecycleNode service interfaces
 
   try
   {
-    auto_declare<int>("update_rate", cm_update_rate);
-    auto_declare<bool>("is_async", false);
+    auto_declare<int>("update_rate", 0);
   }
   catch (const std::exception & e)
   {
@@ -83,10 +81,9 @@ const rclcpp_lifecycle::State & ControllerInterfaceBase::configure()
   // Then we don't need to do state-machine related checks.
   //
   // Other solution is to add check into the LifecycleNode if a transition is valid to trigger
-  if (get_lifecycle_state().id() == lifecycle_msgs::msg::State::PRIMARY_STATE_UNCONFIGURED)
+  if (get_state().id() == lifecycle_msgs::msg::State::PRIMARY_STATE_UNCONFIGURED)
   {
     update_rate_ = static_cast<unsigned int>(get_node()->get_parameter("update_rate").as_int());
-    is_async_ = get_node()->get_parameter("is_async").as_bool();
   }
 
   return get_node()->configure();
@@ -106,7 +103,7 @@ void ControllerInterfaceBase::release_interfaces()
   state_interfaces_.clear();
 }
 
-const rclcpp_lifecycle::State & ControllerInterfaceBase::get_lifecycle_state() const
+const rclcpp_lifecycle::State & ControllerInterfaceBase::get_state() const
 {
   return node_->get_current_state();
 }
@@ -120,7 +117,7 @@ std::shared_ptr<rclcpp_lifecycle::LifecycleNode> ControllerInterfaceBase::get_no
   return node_;
 }
 
-std::shared_ptr<const rclcpp_lifecycle::LifecycleNode> ControllerInterfaceBase::get_node() const
+std::shared_ptr<rclcpp_lifecycle::LifecycleNode> ControllerInterfaceBase::get_node() const
 {
   if (!node_.get())
   {
@@ -130,9 +127,5 @@ std::shared_ptr<const rclcpp_lifecycle::LifecycleNode> ControllerInterfaceBase::
 }
 
 unsigned int ControllerInterfaceBase::get_update_rate() const { return update_rate_; }
-
-bool ControllerInterfaceBase::is_async() const { return is_async_; }
-
-const std::string & ControllerInterfaceBase::get_robot_description() const { return urdf_; }
 
 }  // namespace controller_interface

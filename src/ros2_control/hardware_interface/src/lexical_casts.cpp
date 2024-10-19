@@ -12,50 +12,24 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <locale>
-#include <optional>
-#include <sstream>
-
 #include "hardware_interface/lexical_casts.hpp"
 
 namespace hardware_interface
 {
-namespace impl
+double stod(const std::string & s)
 {
-std::optional<double> stod(const std::string & s)
-{
-#if __cplusplus < 202002L
   // convert from string using no locale
-  // Impl with std::istringstream
   std::istringstream stream(s);
   stream.imbue(std::locale::classic());
   double result;
   stream >> result;
   if (stream.fail() || !stream.eof())
   {
-    return std::nullopt;
+    throw std::invalid_argument("Failed converting string to real number");
   }
   return result;
-#else
-  // Impl with std::from_chars
-  double result_value;
-  const auto parse_result = std::from_chars(s.data(), s.data() + s.size(), result_value);
-  if (parse_result.ec == std::errc())
-  {
-    return result_value;
-  }
-  return std::nullopt;
-#endif
 }
-}  // namespace impl
-double stod(const std::string & s)
-{
-  if (const auto result = impl::stod(s))
-  {
-    return *result;
-  }
-  throw std::invalid_argument("Failed converting string to real number");
-}
+
 bool parse_bool(const std::string & bool_string)
 {
   return bool_string == "true" || bool_string == "True";

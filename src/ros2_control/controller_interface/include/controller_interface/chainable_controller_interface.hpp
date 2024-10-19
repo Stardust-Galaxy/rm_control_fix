@@ -15,9 +15,6 @@
 #ifndef CONTROLLER_INTERFACE__CHAINABLE_CONTROLLER_INTERFACE_HPP_
 #define CONTROLLER_INTERFACE__CHAINABLE_CONTROLLER_INTERFACE_HPP_
 
-#include <memory>
-#include <string>
-#include <unordered_map>
 #include <vector>
 
 #include "controller_interface/controller_interface_base.hpp"
@@ -59,10 +56,7 @@ public:
   bool is_chainable() const final;
 
   CONTROLLER_INTERFACE_PUBLIC
-  std::vector<hardware_interface::StateInterface::ConstSharedPtr> export_state_interfaces() final;
-
-  CONTROLLER_INTERFACE_PUBLIC
-  std::vector<hardware_interface::CommandInterface::SharedPtr> export_reference_interfaces() final;
+  std::vector<hardware_interface::CommandInterface> export_reference_interfaces() final;
 
   CONTROLLER_INTERFACE_PUBLIC
   bool set_chained_mode(bool chained_mode) final;
@@ -71,19 +65,8 @@ public:
   bool is_in_chained_mode() const final;
 
 protected:
-  /// Virtual method that each chainable controller should implement to export its read-only
-  /// chainable interfaces.
-  /**
-   * Each chainable controller implements this methods where all its state(read only) interfaces are
-   * exported. The method has the same meaning as `export_state_interfaces` method from
-   * hardware_interface::SystemInterface or hardware_interface::ActuatorInterface.
-   *
-   * \returns list of StateInterfaces that other controller can use as their inputs.
-   */
-  virtual std::vector<hardware_interface::StateInterface> on_export_state_interfaces();
-
-  /// Virtual method that each chainable controller should implement to export its read/write
-  /// chainable interfaces.
+  /// Virtual method that each chainable controller should implement to export its chainable
+  /// interfaces.
   /**
    * Each chainable controller implements this methods where all input (command) interfaces are
    * exported. The method has the same meaning as `export_command_interface` method from
@@ -91,7 +74,7 @@ protected:
    *
    * \returns list of CommandInterfaces that other controller can use as their outputs.
    */
-  virtual std::vector<hardware_interface::CommandInterface> on_export_reference_interfaces();
+  virtual std::vector<hardware_interface::CommandInterface> on_export_reference_interfaces() = 0;
 
   /// Virtual method that each chainable controller should implement to switch chained mode.
   /**
@@ -114,8 +97,7 @@ protected:
    *
    * \returns return_type::OK if update is successfully, otherwise return_type::ERROR.
    */
-  virtual return_type update_reference_from_subscribers(
-    const rclcpp::Time & time, const rclcpp::Duration & period) = 0;
+  virtual return_type update_reference_from_subscribers() = 0;
 
   /// Execute calculations of the controller and update command interfaces.
   /**
@@ -131,24 +113,8 @@ protected:
   virtual return_type update_and_write_commands(
     const rclcpp::Time & time, const rclcpp::Duration & period) = 0;
 
-  /// Storage of values for state interfaces
-  std::vector<std::string> exported_state_interface_names_;
-  std::vector<hardware_interface::StateInterface::SharedPtr> ordered_exported_state_interfaces_;
-  std::unordered_map<std::string, hardware_interface::StateInterface::SharedPtr>
-    exported_state_interfaces_;
-  // BEGIN (Handle export change): for backward compatibility
-  std::vector<double> state_interfaces_values_;
-  // END
-
   /// Storage of values for reference interfaces
-  std::vector<std::string> exported_reference_interface_names_;
-  // BEGIN (Handle export change): for backward compatibility
   std::vector<double> reference_interfaces_;
-  // END
-  std::vector<hardware_interface::CommandInterface::SharedPtr>
-    ordered_exported_reference_interfaces_;
-  std::unordered_map<std::string, hardware_interface::CommandInterface::SharedPtr>
-    exported_reference_interfaces_;
 
 private:
   /// A flag marking if a chainable controller is currently preceded by another controller.

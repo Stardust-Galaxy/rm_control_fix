@@ -25,7 +25,7 @@
 #include "hardware_interface/loaned_command_interface.hpp"
 #include "hardware_interface/loaned_state_interface.hpp"
 
-#include "rclcpp/version.h"
+#include "rclcpp/rclcpp.hpp"
 #include "rclcpp_lifecycle/lifecycle_node.hpp"
 
 namespace controller_interface
@@ -104,31 +104,21 @@ public:
   CONTROLLER_INTERFACE_PUBLIC
   virtual InterfaceConfiguration state_interface_configuration() const = 0;
 
-  /// Method that assigns the Loaned interfaces to the controller.
-  /**
-   * Method used by the controller_manager to assign the interfaces to the controller.
-   * \note When this method is overridden, the user has to also implement the `release_interfaces`
-   * method by overriding it to release the interfaces.
-   *
-   * \param[in] command_interfaces vector of command interfaces to be assigned to the controller.
-   * \param[in] state_interfaces vector of state interfaces to be assigned to the controller.
-   */
   CONTROLLER_INTERFACE_PUBLIC
-  virtual void assign_interfaces(
+  void assign_interfaces(
     std::vector<hardware_interface::LoanedCommandInterface> && command_interfaces,
     std::vector<hardware_interface::LoanedStateInterface> && state_interfaces);
 
-  /// Method that releases the Loaned interfaces from the controller.
-  /**
-   * Method used by the controller_manager to release the interfaces from the controller.
-   */
   CONTROLLER_INTERFACE_PUBLIC
-  virtual void release_interfaces();
+  void release_interfaces();
 
   CONTROLLER_INTERFACE_PUBLIC
-  return_type init(
-    const std::string & controller_name, const std::string & urdf, unsigned int cm_update_rate,
-    const std::string & node_namespace, const rclcpp::NodeOptions & node_options);
+  virtual return_type init(
+    const std::string & controller_name, const std::string & namespace_ = "",
+    const rclcpp::NodeOptions & node_options =
+      rclcpp::NodeOptions()
+        .allow_undeclared_parameters(true)
+        .automatically_declare_parameters_from_overrides(true));
 
   /// Custom configure method to read additional parameters for controller-nodes
   /*
@@ -157,44 +147,13 @@ public:
   std::shared_ptr<rclcpp_lifecycle::LifecycleNode> get_node();
 
   CONTROLLER_INTERFACE_PUBLIC
-  std::shared_ptr<const rclcpp_lifecycle::LifecycleNode> get_node() const;
+  std::shared_ptr<rclcpp_lifecycle::LifecycleNode> get_node() const;
 
   CONTROLLER_INTERFACE_PUBLIC
-  const rclcpp_lifecycle::State & get_lifecycle_state() const;
+  const rclcpp_lifecycle::State & get_state() const;
 
   CONTROLLER_INTERFACE_PUBLIC
   unsigned int get_update_rate() const;
-
-  CONTROLLER_INTERFACE_PUBLIC
-  bool is_async() const;
-
-  CONTROLLER_INTERFACE_PUBLIC
-  const std::string & get_robot_description() const;
-
-  /**
-   * Method used by the controller_manager for base NodeOptions to instantiate the Lifecycle node
-   * of the controller upon loading the controller.
-   *
-   * \note The controller_manager will modify these NodeOptions in case a params file is passed
-   * by the spawner to load the controller parameters or when controllers are loaded in simulation
-   * (see ros2_control#1311, ros2_controllers#698 , ros2_controllers#795,ros2_controllers#966 for
-   * more details)
-   *
-   * @returns NodeOptions required for the configuration of the controller lifecycle node
-   */
-  CONTROLLER_INTERFACE_PUBLIC
-  virtual rclcpp::NodeOptions define_custom_node_options() const
-  {
-    rclcpp::NodeOptions node_options;
-// \note The versions conditioning is added here to support the source-compatibility with Humble
-#if RCLCPP_VERSION_MAJOR >= 21
-    node_options.enable_logger_service(true);
-#else
-    node_options.allow_undeclared_parameters(true);
-    node_options.automatically_declare_parameters_from_overrides(true);
-#endif
-    return node_options;
-  }
 
   /// Declare and initialize a parameter with a type.
   /**
@@ -235,24 +194,13 @@ public:
    * \returns list of command interfaces for preceding controllers.
    */
   CONTROLLER_INTERFACE_PUBLIC
-  virtual std::vector<hardware_interface::CommandInterface::SharedPtr>
-  export_reference_interfaces() = 0;
-
-  /**
-   * Export interfaces for a chainable controller that can be used as state interface by other
-   * controllers.
-   *
-   * \returns list of state interfaces for preceding controllers.
-   */
-  CONTROLLER_INTERFACE_PUBLIC
-  virtual std::vector<hardware_interface::StateInterface::ConstSharedPtr>
-  export_state_interfaces() = 0;
+  virtual std::vector<hardware_interface::CommandInterface> export_reference_interfaces() = 0;
 
   /**
    * Set chained mode of a chainable controller. This method triggers internal processes to switch
    * a chainable controller to "chained" mode and vice-versa. Setting controller to "chained" mode
-   * usually involves the usage of the controller's reference interfaces by the other
-   * controllers
+   * usually involves disabling of subscribers and other external interfaces to avoid potential
+   * concurrency in input commands.
    *
    * \returns true if mode is switched successfully and false if not.
    */
@@ -273,12 +221,10 @@ public:
 protected:
   std::vector<hardware_interface::LoanedCommandInterface> command_interfaces_;
   std::vector<hardware_interface::LoanedStateInterface> state_interfaces_;
+  unsigned int update_rate_ = 0;
 
 private:
   std::shared_ptr<rclcpp_lifecycle::LifecycleNode> node_;
-  unsigned int update_rate_ = 0;
-  bool is_async_ = false;
-  std::string urdf_ = "";
 };
 
 using ControllerInterfaceBaseSharedPtr = std::shared_ptr<ControllerInterfaceBase>;

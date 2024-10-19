@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from controller_manager import unload_controller, bcolors
+from controller_manager import unload_controller
 
 from ros2cli.node.direct import add_arguments
 from ros2cli.node.strategy import NodeStrategy
@@ -31,15 +31,10 @@ class UnloadControllerVerb(VerbExtension):
         add_controller_mgr_parsers(parser)
 
     def main(self, *, args):
-        with NodeStrategy(args).direct_node as node:
+        with NodeStrategy(args) as node:
             response = unload_controller(node, args.controller_manager, args.controller_name)
             if not response.ok:
-                print(
-                    f"{bcolors.FAIL}Error unloading controller {args.controller_name}, check controller_manager logs{bcolors.ENDC}"
-                )
-                return 1
+                return "Error unloading controllers, check controller_manager logs"
 
-            print(
-                f"{bcolors.OKBLUE}Successfully unloaded controller {args.controller_name}{bcolors.ENDC}"
-            )
+            print(f"Successfully unloaded controller {args.controller_name}")
             return 0

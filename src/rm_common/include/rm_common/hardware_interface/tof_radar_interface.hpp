@@ -1,8 +1,0 @@
-//
-// Created by stardust on 2024/10/12.
-//
-
-#ifndef BUILD_TOF_RADAR_INTERFACE_HPP
-#define BUILD_TOF_RADAR_INTERFACE_HPP
-
-#endif //BUILD_TOF_RADAR_INTERFACE_HPP

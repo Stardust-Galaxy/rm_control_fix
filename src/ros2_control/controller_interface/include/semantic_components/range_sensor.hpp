@@ -15,6 +15,7 @@
 #ifndef SEMANTIC_COMPONENTS__RANGE_SENSOR_HPP_
 #define SEMANTIC_COMPONENTS__RANGE_SENSOR_HPP_
 
+#include <limits>
 #include <string>
 #include <vector>
 

@@ -36,7 +36,7 @@ class ListHardwareComponentsVerb(VerbExtension):
         add_controller_mgr_parsers(parser)
 
     def main(self, *, args):
-        with NodeStrategy(args).direct_node as node:
+        with NodeStrategy(args) as node:
             hardware_components = list_hardware_components(node, args.controller_manager)
 
             for idx, component in enumerate(hardware_components.component):
@@ -54,6 +54,9 @@ class ListHardwareComponentsVerb(VerbExtension):
                 )
                 if hasattr(component, "plugin_name"):
                     plugin_name = f"{component.plugin_name}"
+                # Keep compatibility to the obsolete filed name in Humble
+                elif hasattr(component, "class_type"):
+                    plugin_name = f"{component.class_type}"
                 else:
                     plugin_name = f"{bcolors.WARNING}plugin name missing!{bcolors.ENDC}"
 
@@ -63,6 +66,7 @@ class ListHardwareComponentsVerb(VerbExtension):
                     f"\tcommand interfaces"
                 )
                 for cmd_interface in component.command_interfaces:
+
                     if cmd_interface.is_available:
                         available_str = f"{bcolors.OKBLUE}[available]{bcolors.ENDC}"
                     else:

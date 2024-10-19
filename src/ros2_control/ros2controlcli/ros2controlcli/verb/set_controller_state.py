@@ -37,7 +37,7 @@ class SetControllerStateVerb(VerbExtension):
         add_controller_mgr_parsers(parser)
 
     def main(self, *, args):
-        with NodeStrategy(args).direct_node as node:
+        with NodeStrategy(args) as node:
             controllers = list_controllers(node, args.controller_manager).controller
 
             try:
@@ -57,6 +57,14 @@ class SetControllerStateVerb(VerbExtension):
             #         return 'Error cleaning up controller, check controller_manager logs'
             #          #      print(f'successfully cleaned up {args.controller_name}')
             #     return 0
+
+            if args.state == "configure":
+                args.state = "inactive"
+                print('Setting state "configure" is deprecated, use "inactive" instead!')
+
+            if args.state == "stop":
+                args.state = "inactive"
+                print('Setting state "stop" is deprecated, use "inactive" instead!')
 
             if args.state == "inactive":
                 if matched_controller.state == "unconfigured":
@@ -84,6 +92,10 @@ class SetControllerStateVerb(VerbExtension):
                         f"cannot put {matched_controller.name} in 'inactive' state "
                         f"from its current state {matched_controller.state}"
                     )
+
+            if args.state == "start":
+                args.state = "active"
+                print('Setting state "start" is deprecated, use "active" instead!')
 
             if args.state == "active":
                 if matched_controller.state != "inactive":

@@ -2,174 +2,117 @@
 Changelog for package ros2_control_test_assets
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-4.18.0 (2024-10-07)
--------------------
-* Automatic Creation of Handles in HW, Adding Getters/Setters (variant support) (`#1688 <https://github.com/ros-controls/ros2_control/issues/1688>`_)
-* Contributors: Manuel Muth
-
-4.17.0 (2024-09-11)
--------------------
-* [HWItfs] Add key-value-storage to the InterfaceInfo (`#1421 <https://github.com/ros-controls/ros2_control/issues/1421>`_)
-* Contributors: Manuel Muth
-
-4.16.1 (2024-08-24)
+2.43.1 (2024-09-11)
 -------------------
 
-4.16.0 (2024-08-22)
+2.43.0 (2024-08-22)
 -------------------
 
-4.15.0 (2024-08-05)
+2.42.0 (2024-07-23)
 -------------------
 
-4.14.0 (2024-07-23)
--------------------
-* Unused header cleanup (`#1627 <https://github.com/ros-controls/ros2_control/issues/1627>`_)
-* Contributors: Henry Moore
-
-4.13.0 (2024-07-08)
--------------------
-* [ControllerChaining] Export state interfaces from chainable controllers (`#1021 <https://github.com/ros-controls/ros2_control/issues/1021>`_)
-* Remove mimic parameter from ros2_control tag (`#1553 <https://github.com/ros-controls/ros2_control/issues/1553>`_)
-* Contributors: Christoph Fröhlich, Sai Kishor Kothakota
-
-4.12.0 (2024-07-01)
--------------------
-* [RM] Rename `load_urdf` method to `load_and_initialize_components` and add error handling there to avoid stack crashing when error happens. (`#1354 <https://github.com/ros-controls/ros2_control/issues/1354>`_)
-* [Feature] Hardware Components Grouping (`#1458 <https://github.com/ros-controls/ros2_control/issues/1458>`_)
-* Contributors: Dr. Denis, Sai Kishor Kothakota
-
-4.11.0 (2024-05-14)
--------------------
-* Parse URDF soft_limits into the HardwareInfo structure (`#1488 <https://github.com/ros-controls/ros2_control/issues/1488>`_)
-* Contributors: adriaroig
-
-4.10.0 (2024-05-08)
--------------------
-* Parse URDF joint hard limits into the HardwareInfo structure (`#1472 <https://github.com/ros-controls/ros2_control/issues/1472>`_)
-* Contributors: Sai Kishor Kothakota
-
-4.9.0 (2024-04-30)
-------------------
-* Component parser: Get mimic information from URDF (`#1256 <https://github.com/ros-controls/ros2_control/issues/1256>`_)
-* Contributors: Christoph Fröhlich
-
-4.8.0 (2024-03-27)
-------------------
-
-4.7.0 (2024-03-22)
-------------------
-
-4.6.0 (2024-03-02)
-------------------
-
-4.5.0 (2024-02-12)
-------------------
-
-4.4.0 (2024-01-31)
-------------------
-
-4.3.0 (2024-01-20)
-------------------
-* [ResourceManager] adds test for uninitialized hardware (`#1243 <https://github.com/ros-controls/ros2_control/issues/1243>`_)
-* Contributors: Maximilian Schik
-
-4.2.0 (2023-12-12)
-------------------
-
-4.1.0 (2023-11-30)
-------------------
-
-4.0.0 (2023-11-21)
-------------------
-
-3.21.0 (2023-11-06)
+2.41.0 (2024-04-30)
 -------------------
 
-3.20.0 (2023-10-31)
+2.40.0 (2024-03-02)
 -------------------
-* [ResourceManager] deactivate hardware from read/write return value (`#884 <https://github.com/ros-controls/ros2_control/issues/884>`_)
+
+2.39.1 (2024-02-14)
+-------------------
+
+2.39.0 (2024-02-12)
+-------------------
+
+2.38.0 (2024-01-25)
+-------------------
+
+2.37.0 (2024-01-20)
+-------------------
+
+2.36.1 (2024-01-08)
+-------------------
+* [ResourceManager] adds test for uninitialized hardware (`#1243 <https://github.com/ros-controls/ros2_control/issues/1243>`_) (`#1274 <https://github.com/ros-controls/ros2_control/issues/1274>`_)
+* Contributors: mergify[bot]
+
+2.36.0 (2023-12-12)
+-------------------
+
+2.35.1 (2023-11-27)
+-------------------
+
+2.35.0 (2023-11-14)
+-------------------
+
+2.34.0 (2023-11-08)
+-------------------
+
+2.33.0 (2023-10-11)
+-------------------
+
+2.32.0 (2023-10-03)
+-------------------
+
+2.31.0 (2023-09-11)
+-------------------
+
+2.30.0 (2023-08-14)
+-------------------
+
+2.29.0 (2023-07-09)
+-------------------
+
+2.28.0 (2023-06-23)
+-------------------
+
+2.27.0 (2023-06-14)
+-------------------
+* Empty urdf tag humble (backport of `#1017 <https://github.com/ros-controls/ros2_control/issues/1017>`_) (`#1036 <https://github.com/ros-controls/ros2_control/issues/1036>`_)
 * Contributors: Felix Exner (fexner)
 
-3.19.1 (2023-10-04)
+2.26.0 (2023-05-20)
 -------------------
 
-3.19.0 (2023-10-03)
+2.25.3 (2023-04-29)
 -------------------
 
-3.18.0 (2023-08-17)
+2.25.2 (2023-04-20)
 -------------------
 
-3.17.0 (2023-08-07)
+2.25.1 (2023-04-14)
 -------------------
 
-3.16.0 (2023-07-09)
+2.25.0 (2023-04-02)
 -------------------
 
-3.15.0 (2023-06-23)
+2.24.1 (2023-03-09)
 -------------------
 
-3.14.0 (2023-06-14)
--------------------
-* [URDF Parser] Allow empty urdf tag, e.g., parameter (`#1017 <https://github.com/ros-controls/ros2_control/issues/1017>`_)
-* Contributors: Felix Exner (fexner)
-
-3.13.0 (2023-05-18)
+2.24.0 (2023-02-28)
 -------------------
 
-3.12.2 (2023-04-29)
+2.23.0 (2023-02-20)
 -------------------
 
-3.12.1 (2023-04-14)
+2.22.0 (2023-01-31)
 -------------------
 
-3.12.0 (2023-04-02)
+2.21.0 (2023-01-24)
 -------------------
 
-3.11.0 (2023-03-22)
+2.20.0 (2023-01-12)
 -------------------
 
-3.10.0 (2023-03-16)
+2.19.0 (2023-01-06)
 -------------------
 
-3.9.1 (2023-03-09)
-------------------
+2.18.0 (2022-12-03)
+-------------------
 
-3.9.0 (2023-02-28)
-------------------
+2.17.0 (2022-11-27)
+-------------------
 
-3.8.0 (2023-02-10)
-------------------
-* Fix CMake install so overriding works (`#926 <https://github.com/ros-controls/ros2_control/issues/926>`_)
-* Contributors: Tyler Weaver
-
-3.7.0 (2023-01-24)
-------------------
-
-3.6.0 (2023-01-12)
-------------------
-
-3.5.1 (2023-01-06)
-------------------
-
-3.5.0 (2022-12-06)
-------------------
-* Rename class type to plugin name #api-breaking #abi-breaking (`#780 <https://github.com/ros-controls/ros2_control/issues/780>`_)
-* Contributors: Bence Magyar
-
-3.4.0 (2022-11-27)
-------------------
-
-3.3.0 (2022-11-15)
-------------------
-
-3.2.0 (2022-10-15)
-------------------
-
-3.1.0 (2022-10-05)
-------------------
-
-3.0.0 (2022-09-19)
-------------------
+2.16.0 (2022-10-17)
+-------------------
 
 2.15.0 (2022-09-19)
 -------------------

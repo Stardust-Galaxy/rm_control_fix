@@ -19,10 +19,9 @@ For more information about hardware components check :ref:`detailed documentatio
 
 Features:
 
-  - support for mimic joints, which is parsed from the URDF (see the `URDF wiki <http://wiki.ros.org/urdf/XML/joint>`__)
+  - support for mimic joints
   - mirroring commands to states with and without offset
   - fake command interfaces for setting sensor data from an external node (combined with a :ref:`forward controller <forward_command_controller_userdoc>`)
-  - fake gpio interfaces for setting sensor data from an external node (combined with a :ref:`forward controller <forward_command_controller_userdoc>`)
 
 
 Parameters
@@ -94,8 +93,19 @@ mock_sensor_commands (optional; boolean; default: false)
 position_state_following_offset (optional; double; default: 0.0)
   Following offset added to the commanded values when mirrored to states. Only applied, if ``custom_interface_with_following_offset`` is false.
 
-Per-Interface Parameters
-########################
+
+Per-joint Parameters
+,,,,,,,,,,,,,,,,,,,,
+
+mimic (optional; string)
+  Defined name of the joint to mimic. This is often used concept with parallel grippers. Example: ``<param name="mimic">joint1</param>``.
+
+
+multiplier (optional; double; default: 1; used if mimic joint is defined)
+  Multiplier of values for mimicking joint defined in ``mimic`` parameter. Example: ``<param name="multiplier">-2</param>``.
+
+Per-interface Parameters
+,,,,,,,,,,,,,,,,,,,,,,,,
 
 initial_value (optional; double)
   Initial value of certain state interface directly after startup. Example:

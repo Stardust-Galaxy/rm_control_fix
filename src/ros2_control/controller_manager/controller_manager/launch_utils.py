@@ -20,7 +20,10 @@ from launch_ros.actions import Node
 
 
 def generate_controllers_spawner_launch_description(
-    controller_names: list, controller_params_file=None, extra_spawner_args=[]
+    controller_names: list,
+    controller_type=None,
+    controller_params_file=None,
+    extra_spawner_args=[],
 ):
     """
     Generate launch description for loading a controller using spawner.
@@ -31,12 +34,13 @@ def generate_controllers_spawner_launch_description(
 
     Examples
     --------
-      # Assuming the controller parameters are known to the controller_manager
+      # Assuming the controller type and controller parameters are known to the controller_manager
       generate_controllers_spawner_launch_description(['joint_state_broadcaster'])
 
-      # Passing controller parameter file to load the controller (Controller type is retrieved from config file)
+      # Passing controller type and parameter file to load the controller
       generate_controllers_spawner_launch_description(
         ['joint_state_broadcaster'],
+        controller_type='joint_state_broadcaster/JointStateBroadcaster',
         controller_params_file=os.path.join(get_package_share_directory('my_pkg'),
                                             'config', 'controller_params.yaml'),
         extra_spawner_args=[--load-only]
@@ -61,6 +65,9 @@ def generate_controllers_spawner_launch_description(
             LaunchConfiguration("controller_manager_name"),
         ]
     )
+
+    if controller_type:
+        spawner_arguments += ["--controller-type", controller_type]
 
     if controller_params_file:
         spawner_arguments += ["--param-file", controller_params_file]
@@ -99,10 +106,11 @@ def generate_controllers_spawner_launch_description(
 
 
 def generate_load_controller_launch_description(
-    controller_name: str, controller_params_file=None, extra_spawner_args=[]
+    controller_name: str, controller_type=None, controller_params_file=None, extra_spawner_args=[]
 ):
     return generate_controllers_spawner_launch_description(
         controller_names=[controller_name],
+        controller_type=controller_type,
         controller_params_file=controller_params_file,
         extra_spawner_args=extra_spawner_args,
     )

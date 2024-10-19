@@ -11,15 +11,35 @@
 #include <poll.h>
 #include <rclcpp/rclcpp.hpp>
 #include <string>
-#include <rm_common/hardware_interface/gpio_interface.hpp>
 
 namespace rm_hw {
+    enum GpioType
+    {
+        INPUT,
+        OUTPUT
+    };
+
+    struct GpioData
+    {
+        std::string name;
+        GpioType type;
+        int pin;
+        bool* value;
+    };
+
     class GpioManager {
     public:
         explicit GpioManager(rclcpp::Logger logger);
         ~GpioManager();
 
-        void setGpioDirection();
+        void setGpioDirection(rm_hw::GpioData gpioData);
+        void readGpio();
+        void writeGpio();
+
+        std::vector<rm_hw::GpioData> gpio_states_;
+        std::vector<rm_hw::GpioData> gpio_commands_;
+    private:
+         rclcpp::Logger logger_;
     };
 }
 

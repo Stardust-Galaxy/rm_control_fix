@@ -2,173 +2,125 @@
 Changelog for package transmission_interface
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-4.18.0 (2024-10-07)
+2.43.1 (2024-09-11)
 -------------------
 
-4.17.0 (2024-09-11)
+2.43.0 (2024-08-22)
+-------------------
+* Fix flaky transmission_interface tests by making them deterministic. (backport `#1665 <https://github.com/ros-controls/ros2_control/issues/1665>`_) (`#1670 <https://github.com/ros-controls/ros2_control/issues/1670>`_)
+* Contributors: mergify[bot]
+
+2.42.0 (2024-07-23)
 -------------------
 
-4.16.1 (2024-08-24)
+2.41.0 (2024-04-30)
+-------------------
+* rosdoc2 for transmission_interface (`#1496 <https://github.com/ros-controls/ros2_control/issues/1496>`_) (`#1509 <https://github.com/ros-controls/ros2_control/issues/1509>`_)
+* Contributors: mergify[bot]
+
+2.40.0 (2024-03-02)
 -------------------
 
-4.16.0 (2024-08-22)
--------------------
-* Preparation of Handles for Variant Support (`#1678 <https://github.com/ros-controls/ros2_control/issues/1678>`_)
-* Fix flaky transmission_interface tests by making them deterministic. (`#1665 <https://github.com/ros-controls/ros2_control/issues/1665>`_)
-* Contributors: Manuel Muth, sgmurray
-
-4.15.0 (2024-08-05)
+2.39.1 (2024-02-14)
 -------------------
 
-4.14.0 (2024-07-23)
--------------------
-* Unused header cleanup (`#1627 <https://github.com/ros-controls/ros2_control/issues/1627>`_)
-* Contributors: Henry Moore
-
-4.13.0 (2024-07-08)
+2.39.0 (2024-02-12)
 -------------------
 
-4.12.0 (2024-07-01)
+2.38.0 (2024-01-25)
 -------------------
 
-4.11.0 (2024-05-14)
--------------------
-* Add find_package for ament_cmake_gen_version_h (`#1534 <https://github.com/ros-controls/ros2_control/issues/1534>`_)
-* Contributors: Christoph Fröhlich
-
-4.10.0 (2024-05-08)
+2.37.0 (2024-01-20)
 -------------------
 
-4.9.0 (2024-04-30)
-------------------
-* rosdoc2 for transmission_interface (`#1496 <https://github.com/ros-controls/ros2_control/issues/1496>`_)
-* Component parser: Get mimic information from URDF (`#1256 <https://github.com/ros-controls/ros2_control/issues/1256>`_)
-* Contributors: Christoph Fröhlich
+2.36.1 (2024-01-08)
+-------------------
+* Improve transmission tests (`#1238 <https://github.com/ros-controls/ros2_control/issues/1238>`_) (`#1241 <https://github.com/ros-controls/ros2_control/issues/1241>`_)
+* Contributors: mergify[bot]
 
-4.8.0 (2024-03-27)
-------------------
-* generate version.h file per package using the ament_generate_version_header  (`#1449 <https://github.com/ros-controls/ros2_control/issues/1449>`_)
+2.36.0 (2023-12-12)
+-------------------
+
+2.35.1 (2023-11-27)
+-------------------
+
+2.35.0 (2023-11-14)
+-------------------
+
+2.34.0 (2023-11-08)
+-------------------
+
+2.33.0 (2023-10-11)
+-------------------
+
+2.32.0 (2023-10-03)
+-------------------
+
+2.31.0 (2023-09-11)
+-------------------
+
+2.30.0 (2023-08-14)
+-------------------
+
+2.29.0 (2023-07-09)
+-------------------
+
+2.28.0 (2023-06-23)
+-------------------
+
+2.27.0 (2023-06-14)
+-------------------
+* [Humble] enable ReflowComments to also use ColumnLimit on comments (`#1038 <https://github.com/ros-controls/ros2_control/issues/1038>`_)
 * Contributors: Sai Kishor Kothakota
 
-4.7.0 (2024-03-22)
-------------------
-
-4.6.0 (2024-03-02)
-------------------
-* Add -Werror=missing-braces to compile options (`#1423 <https://github.com/ros-controls/ros2_control/issues/1423>`_)
-* Contributors: Sai Kishor Kothakota
-
-4.5.0 (2024-02-12)
-------------------
-
-4.4.0 (2024-01-31)
-------------------
-
-4.3.0 (2024-01-20)
-------------------
-* Improve transmission tests (`#1238 <https://github.com/ros-controls/ros2_control/issues/1238>`_)
-* Contributors: Maximilian Schik
-
-4.2.0 (2023-12-12)
-------------------
-
-4.1.0 (2023-11-30)
-------------------
-* Add few warning compiler options to error (`#1181 <https://github.com/ros-controls/ros2_control/issues/1181>`_)
-* Contributors: Sai Kishor Kothakota
-
-4.0.0 (2023-11-21)
-------------------
-
-3.21.0 (2023-11-06)
+2.26.0 (2023-05-20)
 -------------------
 
-3.20.0 (2023-10-31)
+2.25.3 (2023-04-29)
 -------------------
 
-3.19.1 (2023-10-04)
+2.25.2 (2023-04-20)
 -------------------
 
-3.19.0 (2023-10-03)
+2.25.1 (2023-04-14)
 -------------------
 
-3.18.0 (2023-08-17)
+2.25.0 (2023-04-02)
 -------------------
+* Split transmission interfaces (backport `#938 <https://github.com/ros-controls/ros2_control/issues/938>`_) (`#968 <https://github.com/ros-controls/ros2_control/issues/968>`_)
+* Contributors: Noel Jiménez García, Bence Magyar
 
-3.17.0 (2023-08-07)
+2.24.1 (2023-03-09)
 -------------------
-
-3.16.0 (2023-07-09)
--------------------
-
-3.15.0 (2023-06-23)
--------------------
-
-3.14.0 (2023-06-14)
--------------------
-* Add -Wconversion flag to protect future developments (`#1053 <https://github.com/ros-controls/ros2_control/issues/1053>`_)
-* enable ReflowComments to also use ColumnLimit on comments (`#1037 <https://github.com/ros-controls/ros2_control/issues/1037>`_)
-* Contributors: Sai Kishor Kothakota, gwalck
-
-3.13.0 (2023-05-18)
--------------------
-
-3.12.2 (2023-04-29)
--------------------
-
-3.12.1 (2023-04-14)
--------------------
-
-3.12.0 (2023-04-02)
--------------------
-
-3.11.0 (2023-03-22)
--------------------
-
-3.10.0 (2023-03-16)
--------------------
-* Split transmission interfaces (`#938 <https://github.com/ros-controls/ros2_control/issues/938>`_)
-* Contributors: Noel Jiménez García
-
-3.9.1 (2023-03-09)
-------------------
-* Fix missing include (`#963 <https://github.com/ros-controls/ros2_control/issues/963>`_)
+* Fix missing include (`#963 <https://github.com/ros-controls/ros2_control/issues/963>`_) (`#965 <https://github.com/ros-controls/ros2_control/issues/965>`_)
 * Contributors: Bence Magyar
 
-3.9.0 (2023-02-28)
-------------------
+2.24.0 (2023-02-28)
+-------------------
 
-3.8.0 (2023-02-10)
-------------------
-* Fix CMake install so overriding works (`#926 <https://github.com/ros-controls/ros2_control/issues/926>`_)
-* Contributors: Tyler Weaver
+2.23.0 (2023-02-20)
+-------------------
 
-3.7.0 (2023-01-24)
-------------------
+2.22.0 (2023-01-31)
+-------------------
 
-3.6.0 (2023-01-12)
-------------------
+2.21.0 (2023-01-24)
+-------------------
 
-3.5.1 (2023-01-06)
-------------------
+2.20.0 (2023-01-12)
+-------------------
 
-3.5.0 (2022-12-06)
-------------------
+2.19.0 (2023-01-06)
+-------------------
 
-3.4.0 (2022-11-27)
-------------------
+2.18.0 (2022-12-03)
+-------------------
 
-3.3.0 (2022-11-15)
-------------------
+2.17.0 (2022-11-27)
+-------------------
 
-3.2.0 (2022-10-15)
-------------------
-
-3.1.0 (2022-10-05)
-------------------
-
-3.0.0 (2022-09-19)
-------------------
+2.16.0 (2022-10-17)
+-------------------
 
 2.15.0 (2022-09-19)
 -------------------

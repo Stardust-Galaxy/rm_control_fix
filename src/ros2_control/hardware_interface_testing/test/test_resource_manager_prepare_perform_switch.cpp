@@ -20,6 +20,7 @@
 #include <vector>
 
 #include "hardware_interface/loaned_state_interface.hpp"
+#include "lifecycle_msgs/msg/state.hpp"
 #include "ros2_control_test_assets/descriptions.hpp"
 
 const auto hardware_resources_command_modes =
@@ -64,7 +65,7 @@ public:
   {
     ResourceManagerTest::SetUp();
 
-    rm_ = std::make_unique<TestableResourceManager>(node_, command_mode_urdf);
+    rm_ = std::make_unique<TestableResourceManager>(command_mode_urdf);
     ASSERT_EQ(1u, rm_->actuator_components_size());
     ASSERT_EQ(1u, rm_->system_components_size());
 
@@ -104,7 +105,6 @@ public:
   std::unique_ptr<hardware_interface::LoanedStateInterface> claimed_actuator_position_state_;
 
   // Scenarios defined by example criteria
-  rclcpp::Node node_{"ResourceManagerPreparePerformTest"};
   std::vector<std::string> empty_keys = {};
   std::vector<std::string> non_existing_keys = {"elbow_joint/position", "should_joint/position"};
   std::vector<std::string> legal_keys_system = {"joint1/position", "joint2/position"};
@@ -367,31 +367,24 @@ TEST_F(
   EXPECT_EQ(claimed_actuator_position_state_->get_value(), 0.0);
 
   // When TestActuatorHardware is INACTIVE expect OK
-  EXPECT_FALSE(rm_->prepare_command_mode_switch(legal_keys_actuator, legal_keys_actuator));
+  EXPECT_TRUE(rm_->prepare_command_mode_switch(legal_keys_actuator, legal_keys_actuator));
   EXPECT_EQ(claimed_system_acceleration_state_->get_value(), 0.0);
   EXPECT_EQ(claimed_actuator_position_state_->get_value(), 0.0);
   EXPECT_TRUE(rm_->perform_command_mode_switch(legal_keys_actuator, legal_keys_actuator));
   EXPECT_EQ(claimed_system_acceleration_state_->get_value(), 0.0);
   EXPECT_EQ(claimed_actuator_position_state_->get_value(), 0.0);
 
-  EXPECT_FALSE(rm_->prepare_command_mode_switch(legal_keys_actuator, empty_keys));
+  EXPECT_TRUE(rm_->prepare_command_mode_switch(legal_keys_actuator, empty_keys));
   EXPECT_EQ(claimed_system_acceleration_state_->get_value(), 0.0);
   EXPECT_EQ(claimed_actuator_position_state_->get_value(), 0.0);
   EXPECT_TRUE(rm_->perform_command_mode_switch(legal_keys_actuator, empty_keys));
   EXPECT_EQ(claimed_system_acceleration_state_->get_value(), 0.0);
   EXPECT_EQ(claimed_actuator_position_state_->get_value(), 0.0);
 
-  EXPECT_FALSE(rm_->prepare_command_mode_switch(empty_keys, legal_keys_actuator));
+  EXPECT_TRUE(rm_->prepare_command_mode_switch(empty_keys, legal_keys_actuator));
   EXPECT_EQ(claimed_system_acceleration_state_->get_value(), 0.0);
   EXPECT_EQ(claimed_actuator_position_state_->get_value(), 0.0);
   EXPECT_TRUE(rm_->perform_command_mode_switch(empty_keys, legal_keys_actuator));
   EXPECT_EQ(claimed_system_acceleration_state_->get_value(), 0.0);
   EXPECT_EQ(claimed_actuator_position_state_->get_value(), 0.0);
 };
-
-int main(int argc, char ** argv)
-{
-  rclcpp::init(argc, argv);
-  testing::InitGoogleTest(&argc, argv);
-  return RUN_ALL_TESTS();
-}

@@ -16,8 +16,6 @@
 
 #include <gmock/gmock.h>
 #include <memory>
-#include <string>
-#include <vector>
 
 #include "rclcpp/executor_options.hpp"
 #include "rclcpp/executors/multi_threaded_executor.hpp"
@@ -40,18 +38,15 @@ TEST(TestableControllerInterface, init)
   ASSERT_THROW(controller.get_node(), std::runtime_error);
 
   // initialize, create node
-  const auto node_options = controller.define_custom_node_options();
-  ASSERT_EQ(
-    controller.init(TEST_CONTROLLER_NAME, "", 10.0, "", node_options),
-    controller_interface::return_type::OK);
+  ASSERT_EQ(controller.init(TEST_CONTROLLER_NAME), controller_interface::return_type::OK);
   ASSERT_NO_THROW(controller.get_node());
 
   // update_rate is set to default 0
   ASSERT_EQ(controller.get_update_rate(), 0u);
 
-  // Even after configure is 10
+  // Even after configure is 0
   controller.configure();
-  ASSERT_EQ(controller.get_update_rate(), 10u);
+  ASSERT_EQ(controller.get_update_rate(), 0u);
 
   rclcpp::shutdown();
 }
@@ -59,19 +54,13 @@ TEST(TestableControllerInterface, init)
 TEST(TestableControllerInterface, setting_update_rate_in_configure)
 {
   // mocks the declaration of overrides parameters in a yaml file
-  rclcpp::init(0, nullptr);
+  char const * const argv[] = {"", "--ros-args", "-p", "update_rate:=2812"};
+  int argc = arrlen(argv);
+  rclcpp::init(argc, argv);
 
   TestableControllerInterface controller;
   // initialize, create node
-  auto node_options = controller.define_custom_node_options();
-  std::vector<std::string> node_options_arguments = node_options.arguments();
-  node_options_arguments.push_back("--ros-args");
-  node_options_arguments.push_back("-p");
-  node_options_arguments.push_back("update_rate:=2812");
-  node_options = node_options.arguments(node_options_arguments);
-  ASSERT_EQ(
-    controller.init(TEST_CONTROLLER_NAME, "", 1.0, "", node_options),
-    controller_interface::return_type::OK);
+  ASSERT_EQ(controller.init(TEST_CONTROLLER_NAME), controller_interface::return_type::OK);
 
   // initialize executor to be able to get parameter update
   auto executor =
@@ -134,10 +123,7 @@ TEST(TestableControllerInterfaceInitError, init_with_error)
   TestableControllerInterfaceInitError controller;
 
   // initialize, create node
-  const auto node_options = controller.define_custom_node_options();
-  ASSERT_EQ(
-    controller.init(TEST_CONTROLLER_NAME, "", 100.0, "", node_options),
-    controller_interface::return_type::ERROR);
+  ASSERT_EQ(controller.init(TEST_CONTROLLER_NAME), controller_interface::return_type::ERROR);
 
   rclcpp::shutdown();
 }
@@ -151,10 +137,7 @@ TEST(TestableControllerInterfaceInitFailure, init_with_failure)
   TestableControllerInterfaceInitFailure controller;
 
   // initialize, create node
-  const auto node_options = controller.define_custom_node_options();
-  ASSERT_EQ(
-    controller.init(TEST_CONTROLLER_NAME, "", 50.0, "", node_options),
-    controller_interface::return_type::ERROR);
+  ASSERT_EQ(controller.init(TEST_CONTROLLER_NAME), controller_interface::return_type::ERROR);
 
   rclcpp::shutdown();
 }

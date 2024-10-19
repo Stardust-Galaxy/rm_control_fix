@@ -17,11 +17,11 @@ on:
     # Run every day to detect flakiness and broken dependencies
     - cron: '03 1 * * *'
 
+
 jobs:
   rhel_semi_binary_build:
     uses: ros-controls/ros2_control_ci/.github/workflows/reusable-rhel-binary-build.yml@master
     strategy:
-      fail-fast: false
       matrix:
         ROS_DISTRO: [iron]
     with:

@@ -21,7 +21,6 @@
 #include <string>
 #include <vector>
 
-#include "hardware_interface/types/hardware_interface_type_values.hpp"
 #include "transmission_interface/accessor.hpp"
 #include "transmission_interface/exception.hpp"
 #include "transmission_interface/transmission.hpp"

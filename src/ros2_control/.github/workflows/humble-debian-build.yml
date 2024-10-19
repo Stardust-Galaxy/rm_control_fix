@@ -22,7 +22,6 @@ jobs:
   debian_source_build:
     uses: ros-controls/ros2_control_ci/.github/workflows/reusable-debian-build.yml@master
     strategy:
-      fail-fast: false
       matrix:
         ROS_DISTRO: [humble]
     with:
@@ -30,4 +29,4 @@ jobs:
       upstream_workspace: ros2_control.${{ matrix.ROS_DISTRO }}.repos
       ref_for_scheduled_build: master
       skip_packages: rqt_controller_manager
-      skip_packages_test: controller_manager_msgs
+      skip_packages_test: controller_manager_msgs control_msgs

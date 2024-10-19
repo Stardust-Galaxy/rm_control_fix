@@ -15,7 +15,8 @@ find_package(std_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 
 set(msg_files
-    msg/LowpassData.msg
+        msg/LowpassData.msg
+        msg/DbusData.msg
 )
 rosidl_generate_interfaces(${PROJECT_NAME}
         ${msg_files}

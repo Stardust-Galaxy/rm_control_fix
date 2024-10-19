@@ -15,79 +15,54 @@
 #ifndef HARDWARE_INTERFACE__HANDLE_HPP_
 #define HARDWARE_INTERFACE__HANDLE_HPP_
 
-#include <limits>
-#include <memory>
 #include <string>
-#include <variant>
+#include <utility>
 
-#include "hardware_interface/hardware_info.hpp"
 #include "hardware_interface/macros.hpp"
+#include "hardware_interface/visibility_control.h"
 
 namespace hardware_interface
 {
-
-using HANDLE_DATATYPE = std::variant<double>;
-
 /// A handle used to get and set a value on a given interface.
-class Handle
+class ReadOnlyHandle
 {
 public:
-  [[deprecated("Use InterfaceDescription for initializing the Interface")]]
-
-  Handle(
+  ReadOnlyHandle(
     const std::string & prefix_name, const std::string & interface_name,
     double * value_ptr = nullptr)
-  : prefix_name_(prefix_name),
-    interface_name_(interface_name),
-    handle_name_(prefix_name_ + "/" + interface_name_),
-    value_ptr_(value_ptr)
+  : prefix_name_(prefix_name), interface_name_(interface_name), value_ptr_(value_ptr)
   {
   }
 
-  explicit Handle(const InterfaceDescription & interface_description)
-  : prefix_name_(interface_description.get_prefix_name()),
-    interface_name_(interface_description.get_interface_name()),
-    handle_name_(interface_description.get_name())
-  {
-    // As soon as multiple datatypes are used in HANDLE_DATATYPE
-    // we need to initialize according the type passed in interface description
-    value_ = std::numeric_limits<double>::quiet_NaN();
-    value_ptr_ = std::get_if<double>(&value_);
-  }
-
-  [[deprecated("Use InterfaceDescription for initializing the Interface")]]
-
-  explicit Handle(const std::string & interface_name)
-  : interface_name_(interface_name), handle_name_("/" + interface_name_), value_ptr_(nullptr)
+  explicit ReadOnlyHandle(const std::string & interface_name)
+  : interface_name_(interface_name), value_ptr_(nullptr)
   {
   }
 
-  [[deprecated("Use InterfaceDescription for initializing the Interface")]]
-
-  explicit Handle(const char * interface_name)
-  : interface_name_(interface_name), handle_name_("/" + interface_name_), value_ptr_(nullptr)
+  explicit ReadOnlyHandle(const char * interface_name)
+  : interface_name_(interface_name), value_ptr_(nullptr)
   {
   }
 
-  Handle(const Handle & other) = default;
+  ReadOnlyHandle(const ReadOnlyHandle & other) = default;
 
-  Handle(Handle && other) = default;
+  ReadOnlyHandle(ReadOnlyHandle && other) = default;
 
-  Handle & operator=(const Handle & other) = default;
+  ReadOnlyHandle & operator=(const ReadOnlyHandle & other) = default;
 
-  Handle & operator=(Handle && other) = default;
+  ReadOnlyHandle & operator=(ReadOnlyHandle && other) = default;
 
-  virtual ~Handle() = default;
+  virtual ~ReadOnlyHandle() = default;
 
   /// Returns true if handle references a value.
   inline operator bool() const { return value_ptr_ != nullptr; }
 
-  const std::string & get_name() const { return handle_name_; }
+  const std::string get_name() const { return prefix_name_ + "/" + interface_name_; }
 
   const std::string & get_interface_name() const { return interface_name_; }
 
   [[deprecated(
-    "Replaced by get_name method, which is semantically more correct")]] const std::string &
+    "Replaced by get_name method, which is semantically more correct")]] const std::string
   get_full_name() const
   {
     return get_name();
@@ -97,58 +72,60 @@ public:
 
   double get_value() const
   {
-    // BEGIN (Handle export change): for backward compatibility
-    // TODO(Manuel) return value_ if old functionality is removed
     THROW_ON_NULLPTR(value_ptr_);
     return *value_ptr_;
-    // END
-  }
-
-  void set_value(double value)
-  {
-    // BEGIN (Handle export change): for backward compatibility
-    // TODO(Manuel) set value_ directly if old functionality is removed
-    THROW_ON_NULLPTR(this->value_ptr_);
-    *this->value_ptr_ = value;
-    // END
   }
 
 protected:
   std::string prefix_name_;
   std::string interface_name_;
-  std::string handle_name_;
-  HANDLE_DATATYPE value_;
-  // BEGIN (Handle export change): for backward compatibility
-  // TODO(Manuel) redeclare as HANDLE_DATATYPE * value_ptr_ if old functionality is removed
   double * value_ptr_;
-  // END
 };
 
-class StateInterface : public Handle
+class ReadWriteHandle : public ReadOnlyHandle
 {
 public:
-  explicit StateInterface(const InterfaceDescription & interface_description)
-  : Handle(interface_description)
+  ReadWriteHandle(
+    const std::string & prefix_name, const std::string & interface_name,
+    double * value_ptr = nullptr)
+  : ReadOnlyHandle(prefix_name, interface_name, value_ptr)
   {
   }
 
+  explicit ReadWriteHandle(const std::string & interface_name) : ReadOnlyHandle(interface_name) {}
+
+  explicit ReadWriteHandle(const char * interface_name) : ReadOnlyHandle(interface_name) {}
+
+  ReadWriteHandle(const ReadWriteHandle & other) = default;
+
+  ReadWriteHandle(ReadWriteHandle && other) = default;
+
+  ReadWriteHandle & operator=(const ReadWriteHandle & other) = default;
+
+  ReadWriteHandle & operator=(ReadWriteHandle && other) = default;
+
+  virtual ~ReadWriteHandle() = default;
+
+  void set_value(double value)
+  {
+    THROW_ON_NULLPTR(this->value_ptr_);
+    *this->value_ptr_ = value;
+  }
+};
+
+class StateInterface : public ReadOnlyHandle
+{
+public:
   StateInterface(const StateInterface & other) = default;
 
   StateInterface(StateInterface && other) = default;
 
-  using Handle::Handle;
-
-  using SharedPtr = std::shared_ptr<StateInterface>;
-  using ConstSharedPtr = std::shared_ptr<const StateInterface>;
+  using ReadOnlyHandle::ReadOnlyHandle;
 };
 
-class CommandInterface : public Handle
+class CommandInterface : public ReadWriteHandle
 {
 public:
-  explicit CommandInterface(const InterfaceDescription & interface_description)
-  : Handle(interface_description)
-  {
-  }
   /// CommandInterface copy constructor is actively deleted.
   /**
    * Command interfaces are having a unique ownership and thus
@@ -159,9 +136,7 @@ public:
 
   CommandInterface(CommandInterface && other) = default;
 
-  using Handle::Handle;
-
-  using SharedPtr = std::shared_ptr<CommandInterface>;
+  using ReadWriteHandle::ReadWriteHandle;
 };
 
 }  // namespace hardware_interface

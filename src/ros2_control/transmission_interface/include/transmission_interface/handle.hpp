@@ -15,22 +15,24 @@
 #ifndef TRANSMISSION_INTERFACE__HANDLE_HPP_
 #define TRANSMISSION_INTERFACE__HANDLE_HPP_
 
+#include <string>
+
 #include "hardware_interface/handle.hpp"
 
 namespace transmission_interface
 {
 /** A handle used to get and set a value on a given actuator interface. */
-class ActuatorHandle : public hardware_interface::Handle
+class ActuatorHandle : public hardware_interface::ReadWriteHandle
 {
 public:
-  using hardware_interface::Handle::Handle;
+  using hardware_interface::ReadWriteHandle::ReadWriteHandle;
 };
 
 /** A handle used to get and set a value on a given joint interface. */
-class JointHandle : public hardware_interface::Handle
+class JointHandle : public hardware_interface::ReadWriteHandle
 {
 public:
-  using hardware_interface::Handle::Handle;
+  using hardware_interface::ReadWriteHandle::ReadWriteHandle;
 };
 
 }  // namespace transmission_interface

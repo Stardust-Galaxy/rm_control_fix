@@ -2,188 +2,155 @@
 Changelog for package ros2controlcli
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-4.18.0 (2024-10-07)
+2.43.1 (2024-09-11)
 -------------------
-* [ros2controlcli] add params file parsing to load_controller verb and add namespacing support  (`#1703 <https://github.com/ros-controls/ros2_control/issues/1703>`_)
-* Contributors: Sai Kishor Kothakota
+* [ros2controlcli] fix list_controllers when no controllers are loaded (`#1721 <https://github.com/ros-controls/ros2_control/issues/1721>`_) (`#1722 <https://github.com/ros-controls/ros2_control/issues/1722>`_)
+* Contributors: mergify[bot]
 
-4.17.0 (2024-09-11)
+2.43.0 (2024-08-22)
 -------------------
-* [ros2controlcli] fix list_controllers when no controllers are loaded (`#1721 <https://github.com/ros-controls/ros2_control/issues/1721>`_)
-* Contributors: Sai Kishor Kothakota
+* Make list controller and list hardware components immediately visualize the state. (backport `#1606 <https://github.com/ros-controls/ros2_control/issues/1606>`_) (`#1690 <https://github.com/ros-controls/ros2_control/issues/1690>`_)
+* Contributors: mergify[bot]
 
-4.16.1 (2024-08-24)
--------------------
-
-4.16.0 (2024-08-22)
--------------------
-* Refactor spawner to be able to reuse code for ros2controlcli (`#1661 <https://github.com/ros-controls/ros2_control/issues/1661>`_)
-* Make list controller and list hardware components immediately visualize the state. (`#1606 <https://github.com/ros-controls/ros2_control/issues/1606>`_)
-* Contributors: Dr. Denis, Sai Kishor Kothakota
-
-4.15.0 (2024-08-05)
+2.42.0 (2024-07-23)
 -------------------
 
-4.14.0 (2024-07-23)
+2.41.0 (2024-04-30)
+-------------------
+* [CI] Specify runner/container images and codecov for joint_limits  (`#1504 <https://github.com/ros-controls/ros2_control/issues/1504>`_) (`#1519 <https://github.com/ros-controls/ros2_control/issues/1519>`_)
+* [CLI] Add `set_hardware_component_state` verb (`#1248 <https://github.com/ros-controls/ros2_control/issues/1248>`_) (`#1470 <https://github.com/ros-controls/ros2_control/issues/1470>`_)
+* Contributors: mergify[bot]
+
+2.40.0 (2024-03-02)
+-------------------
+* [CI] Code coverage + pre-commit (backport `#1413 <https://github.com/ros-controls/ros2_control/issues/1413>`_) (`#1414 <https://github.com/ros-controls/ros2_control/issues/1414>`_)
+* Added spawner colours to `list_controllers` depending upon active or inactive (backport `#1409 <https://github.com/ros-controls/ros2_control/issues/1409>`_) (`#1424 <https://github.com/ros-controls/ros2_control/issues/1424>`_)
+* Contributors: mergify[bot]
+
+2.39.1 (2024-02-14)
 -------------------
 
-4.13.0 (2024-07-08)
--------------------
-* Remove ament linters (`#1601 <https://github.com/ros-controls/ros2_control/issues/1601>`_)
-* Contributors: Bence Magyar
-
-4.12.0 (2024-07-01)
+2.39.0 (2024-02-12)
 -------------------
 
-4.11.0 (2024-05-14)
+2.38.0 (2024-01-25)
 -------------------
 
-4.10.0 (2024-05-08)
+2.37.0 (2024-01-20)
 -------------------
 
-4.9.0 (2024-04-30)
-------------------
-* [CI] Specify runner/container images and codecov for joint_limits  (`#1504 <https://github.com/ros-controls/ros2_control/issues/1504>`_)
-* [CLI] Add `set_hardware_component_state` verb (`#1248 <https://github.com/ros-controls/ros2_control/issues/1248>`_)
+2.36.1 (2024-01-08)
+-------------------
+* [docs] Remove joint_state_controller (`#1263 <https://github.com/ros-controls/ros2_control/issues/1263>`_) (`#1264 <https://github.com/ros-controls/ros2_control/issues/1264>`_)
+* Contributors: mergify[bot]
+
+2.36.0 (2023-12-12)
+-------------------
+
+2.35.1 (2023-11-27)
+-------------------
+
+2.35.0 (2023-11-14)
+-------------------
+
+2.34.0 (2023-11-08)
+-------------------
+
+2.33.0 (2023-10-11)
+-------------------
+* Fix doc of load_controller (`#1135 <https://github.com/ros-controls/ros2_control/issues/1135>`_)
 * Contributors: Christoph Fröhlich
 
-4.8.0 (2024-03-27)
-------------------
+2.32.0 (2023-10-03)
+-------------------
 
-4.7.0 (2024-03-22)
-------------------
+2.31.0 (2023-09-11)
+-------------------
 
-4.6.0 (2024-03-02)
-------------------
-* Added spawner colours to `list_controllers` depending upon active or inactive (`#1409 <https://github.com/ros-controls/ros2_control/issues/1409>`_)
-* Contributors: Soham Patil
-
-4.5.0 (2024-02-12)
-------------------
-
-4.4.0 (2024-01-31)
-------------------
-
-4.3.0 (2024-01-20)
-------------------
-* [docs] Remove joint_state_controller (`#1263 <https://github.com/ros-controls/ros2_control/issues/1263>`_)
+2.30.0 (2023-08-14)
+-------------------
+* Add info where the pdf is saved to view_controller_chains (`#1094 <https://github.com/ros-controls/ros2_control/issues/1094>`_) (`#1096 <https://github.com/ros-controls/ros2_control/issues/1096>`_)
 * Contributors: Christoph Fröhlich
 
-4.2.0 (2023-12-12)
-------------------
-
-4.1.0 (2023-11-30)
-------------------
-
-4.0.0 (2023-11-21)
-------------------
-
-3.21.0 (2023-11-06)
+2.29.0 (2023-07-09)
 -------------------
 
-3.20.0 (2023-10-31)
+2.28.0 (2023-06-23)
 -------------------
-* Fix doc of load_controller (`#1132 <https://github.com/ros-controls/ros2_control/issues/1132>`_)
-* Contributors: Christoph Fröhlich
-
-3.19.1 (2023-10-04)
--------------------
-
-3.19.0 (2023-10-03)
--------------------
-
-3.18.0 (2023-08-17)
--------------------
-
-3.17.0 (2023-08-07)
--------------------
-* Add info where the pdf is saved to view_controller_chains (`#1094 <https://github.com/ros-controls/ros2_control/issues/1094>`_)
-* Contributors: Christoph Fröhlich
-
-3.16.0 (2023-07-09)
--------------------
-
-3.15.0 (2023-06-23)
--------------------
-* Improve list hardware components output and code for better readability. (`#1060 <https://github.com/ros-controls/ros2_control/issues/1060>`_)
+* Improve list hardware components output and code for better readability. (backport `#1060 <https://github.com/ros-controls/ros2_control/issues/1060>`_) (`#1061 <https://github.com/ros-controls/ros2_control/issues/1061>`_)
 * Contributors: Dr. Denis
 
-3.14.0 (2023-06-14)
+2.27.0 (2023-06-14)
 -------------------
-* Docs: Use branch name substitution for all links (`#1031 <https://github.com/ros-controls/ros2_control/issues/1031>`_)
+* Docs: Use branch name substitution for all links (backport `#1031 <https://github.com/ros-controls/ros2_control/issues/1031>`_) (`#1042 <https://github.com/ros-controls/ros2_control/issues/1042>`_)
 * Contributors: Christoph Fröhlich
 
-3.13.0 (2023-05-18)
+2.26.0 (2023-05-20)
 -------------------
-* Fix github links on control.ros.org (`#1019 <https://github.com/ros-controls/ros2_control/issues/1019>`_)
+
+2.25.3 (2023-04-29)
+-------------------
+* Fix verbose output of list_hardware_components (`#1006 <https://github.com/ros-controls/ros2_control/issues/1006>`_)
 * Contributors: Christoph Fröhlich
 
-3.12.2 (2023-04-29)
+2.25.2 (2023-04-20)
 -------------------
-* Fix verbose output of list_hardware_components (`#1004 <https://github.com/ros-controls/ros2_control/issues/1004>`_)
+
+2.25.1 (2023-04-14)
+-------------------
+
+2.25.0 (2023-04-02)
+-------------------
+
+2.24.1 (2023-03-09)
+-------------------
+
+2.24.0 (2023-02-28)
+-------------------
+* Fix wrong CLI output of controller states (backport `#947 <https://github.com/ros-controls/ros2_control/issues/947>`_) (`#951 <https://github.com/ros-controls/ros2_control/issues/951>`_)
+  * [CLI] Fix wrong output of controller states for `load_controller` command (`#947 <https://github.com/ros-controls/ros2_control/issues/947>`_)
+  (cherry picked from commit a676d3cd8c0fbb925435a237ee5df5d4811201f2)
+  # Conflicts:
+  #	ros2controlcli/ros2controlcli/verb/load_controller.py
+  #	ros2controlcli/ros2controlcli/verb/set_controller_state.py
+  * Make changes non-breaking
+  ---------
+  Co-authored-by: Christoph Fröhlich <christophfroehlich@users.noreply.github.com>
+  Co-authored-by: Dr. Denis <denis@stoglrobotics.de>
+* Contributors: mergify[bot]
+
+2.23.0 (2023-02-20)
+-------------------
+* Adds list_hardware_components to CLI `#796 <https://github.com/ros-controls/ros2_control/issues/796>`_ - Adds list_hardware_components to CLI (`#891 <https://github.com/ros-controls/ros2_control/issues/891>`_) (`#937 <https://github.com/ros-controls/ros2_control/issues/937>`_)
+* Do not use CLI calls but direct API for setting parameters. (backport `#910 <https://github.com/ros-controls/ros2_control/issues/910>`_) (`#913 <https://github.com/ros-controls/ros2_control/issues/913>`_)
+* Contributors: Andy McEvoy, Denis Stogl
+
+2.22.0 (2023-01-31)
+-------------------
+
+2.21.0 (2023-01-24)
+-------------------
+
+2.20.0 (2023-01-12)
+-------------------
+
+2.19.0 (2023-01-06)
+-------------------
+
+2.18.0 (2022-12-03)
+-------------------
+* Fix hardware interface CLI description (`#864 <https://github.com/ros-controls/ros2_control/issues/864>`_) (`#869 <https://github.com/ros-controls/ros2_control/issues/869>`_)
 * Contributors: Christoph Fröhlich
 
-3.12.1 (2023-04-14)
+2.17.0 (2022-11-27)
 -------------------
 
-3.12.0 (2023-04-02)
+2.16.0 (2022-10-17)
 -------------------
-
-3.11.0 (2023-03-22)
--------------------
-
-3.10.0 (2023-03-16)
--------------------
-
-3.9.1 (2023-03-09)
-------------------
-
-3.9.0 (2023-02-28)
-------------------
-* Remove deprecations from CLI and controller_manager (`#948 <https://github.com/ros-controls/ros2_control/issues/948>`_)
-* [CLI] Fix wrong output of controller states for `load_controller` command (`#947 <https://github.com/ros-controls/ros2_control/issues/947>`_)
-* Contributors: Christoph Fröhlich
-
-3.8.0 (2023-02-10)
-------------------
-* 🖤 Add Black formatter for Python files. (`#936 <https://github.com/ros-controls/ros2_control/issues/936>`_)
-* Add list_hardware_components CLI  <https://github.com/ros-controls/ros2_control/issues/796>`_ - Adds list_hardware_components to CLI (`#891 <https://github.com/ros-controls/ros2_control/issues/891>`_)
-* Contributors: Andy McEvoy, Dr. Denis
-
-3.7.0 (2023-01-24)
-------------------
-* Do not use CLI calls but direct API for setting parameters. (`#910 <https://github.com/ros-controls/ros2_control/issues/910>`_)
-* Contributors: Dr. Denis
-
-3.6.0 (2023-01-12)
-------------------
-
-3.5.1 (2023-01-06)
-------------------
-
-3.5.0 (2022-12-06)
-------------------
-* Fix hardware interface CLI description (`#864 <https://github.com/ros-controls/ros2_control/issues/864>`_)
-* Contributors: Christoph Fröhlich
-
-3.4.0 (2022-11-27)
-------------------
-
-3.3.0 (2022-11-15)
-------------------
-
-3.2.0 (2022-10-15)
-------------------
-
-3.1.0 (2022-10-05)
-------------------
-
-3.0.0 (2022-09-19)
-------------------
 
 2.15.0 (2022-09-19)
 -------------------
-* migrate from graphviz python to pygraphviz (`#812 <https://github.com/ros-controls/ros2_control/issues/812>`_)
+* pygraphviz functions updated (`#812 <https://github.com/ros-controls/ros2_control/issues/812>`_) (`#814 <https://github.com/ros-controls/ros2_control/issues/814>`_)
 * Contributors: Sachin Kumar
 
 2.14.0 (2022-09-04)

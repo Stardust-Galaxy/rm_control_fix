@@ -14,6 +14,11 @@
 
 #include "test_controller_with_interfaces.hpp"
 
+#include <memory>
+#include <string>
+
+#include "lifecycle_msgs/msg/transition.hpp"
+
 namespace test_controller_with_interfaces
 {
 TestControllerWithInterfaces::TestControllerWithInterfaces()

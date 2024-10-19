@@ -10,7 +10,28 @@ find_package(ament_cmake REQUIRED)
 # uncomment the following section in order to fill in
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(rm_msgs REQUIRED)
+find_package(ament_cmake_auto REQUIRED)
 
+ament_auto_find_build_dependencies()
+ament_auto_add_library(${PROJECT_NAME} SHARED
+        src/dbus.cpp
+        src/dbus_node.cpp
+)
+
+ament_target_dependencies( ${PROJECT_NAME}
+        rclcpp
+        rm_msgs
+)
+target_include_directories(${PROJECT_NAME} PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+        $<INSTALL_INTERFACE:include>
+)
+install(
+        DIRECTORY include
+        DESTINATION include
+)
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   # the following line skips the linter which checks for copyrights
@@ -23,4 +44,4 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
-ament_package()
+ament_auto_package()

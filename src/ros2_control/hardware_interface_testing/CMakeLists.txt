@@ -2,8 +2,7 @@ cmake_minimum_required(VERSION 3.16)
 project(hardware_interface_testing LANGUAGES CXX)
 
 if(CMAKE_CXX_COMPILER_ID MATCHES "(GNU|Clang)")
-  add_compile_options(-Wall -Wextra -Werror=conversion -Werror=unused-but-set-variable -Werror=return-type -Werror=shadow
-          -Werror=missing-braces)
+  add_compile_options(-Wall -Wextra -Werror=conversion -Werror=unused-but-set-variable -Werror=return-type -Werror=shadow)
 endif()
 
 set(THIS_PACKAGE_INCLUDE_DEPENDS
@@ -21,18 +20,18 @@ foreach(Dependency IN ITEMS ${THIS_PACKAGE_INCLUDE_DEPENDS})
 endforeach()
 
 add_library(test_components SHARED
-test/test_components/test_actuator.cpp
-test/test_components/test_sensor.cpp
-test/test_components/test_system.cpp)
+  test/test_components/test_actuator.cpp
+  test/test_components/test_sensor.cpp
+  test/test_components/test_system.cpp
+)
 ament_target_dependencies(test_components hardware_interface pluginlib ros2_control_test_assets)
 install(TARGETS test_components
-DESTINATION lib
+  DESTINATION lib
 )
 pluginlib_export_plugin_description_file(
 hardware_interface test/test_components/test_components.xml)
 
 if(BUILD_TESTING)
-
   find_package(ament_cmake_gmock REQUIRED)
 
   ament_add_gmock(test_resource_manager test/test_resource_manager.cpp)
